@@ -15,6 +15,7 @@ Servico_Extra: serviços adicionais oferecidos pelo hotel.
 ============================================================================
 
 RELACIONAMENTO
+
 Um hóspede realiza reservas, podendo fazer várias reservas ao longo do tempo,
 Uma reserva aloca um quarto, sendo cada reserva associada a um único quarto,
 Uma reserva pode gerar uma hospedagem, representando a estadia do cliente,
@@ -25,6 +26,8 @@ Uma hospedagem recebe avaliações, feitas pelos clientes após a estadia.
 ============================================================================
 
 REGRA DE NEGOCIO
+
+
 Um hóspede pode realizar várias reservas, mas cada reserva pertence a um único hóspede,
 Um quarto pode ser reservado várias vezes, desde que em períodos diferentes,
 Uma reserva está associada a apenas um quarto,
@@ -57,10 +60,12 @@ desempenho operacional do hotel.
 BANCO DE DADOS
 
 create database hotel_Nebulosa;
+
 use hotel_Nebulosa;
 
 
 create table hospede (
+
     id_hospede int primary key auto_increment,
     nome varchar(100) not null,
     cpf varchar(14) unique,
@@ -69,6 +74,7 @@ create table hospede (
 );
 
 create table quarto (
+
     id_quarto int primary key auto_increment,
     numero int not null,
     tipo varchar(50),
@@ -77,6 +83,7 @@ create table quarto (
 );
 
 create table reserva (
+
     id_reserva int primary key auto_increment,
     data_inicio date,
     data_fim date,
@@ -90,12 +97,14 @@ create table reserva (
 );
 
 create table funcionario (
+
     id_funcionario int primary key auto_increment,
     nome varchar(100),
     cargo varchar(50)
 );
 
 create table hospedagens (
+
     id_hospedagens int primary key auto_increment,
     checkin date,
     checkout date,
@@ -107,6 +116,7 @@ create table hospedagens (
 );
 
 create table pagamento (
+
     id_pagamento int primary key auto_increment,
     valor decimal(10,2),
     data_pagamento date,
@@ -118,6 +128,7 @@ create table pagamento (
 );
 
 create table avaliacao (
+
     id_avaliacao int primary key auto_increment,
     nota int,
     comentario text,
@@ -127,18 +138,22 @@ create table avaliacao (
 );
 
 create table servico_extra (
+
     id_servico int primary key auto_increment,
     nome varchar(100),
     preco decimal(10,2)
 );
 
-insert into hospede (nome, cpf, telefone, email) values
+insert into hospede (nome, cpf, telefone, email) 
+values
 ('joao pereira', '111.222.333-44', '11988887777', 'joao@email.com'),
 ('maria oliveira', '222.333.444-55', '11977776666', 'maria@email.com'),
 ('lucas santos', '333.444.555-66', '11966665555', 'lucas@email.com');
 
 
-insert into quarto (numero, tipo, preco, status_quarto) values
+insert into quarto (numero, tipo, preco, status_quarto) 
+
+values
 (102, 'standard', 200.00, 'disponivel'),
 (103, 'luxo', 400.00, 'ocupado'),
 (104, 'suite', 600.00, 'disponivel');
@@ -149,20 +164,24 @@ insert into funcionario (nome, cargo) values
 ('juliana costa', 'camareira');
 
 insert into reserva (data_inicio, data_fim, data_reserva, status_reserva, id_hospede, id_quarto) values
+
 ('2026-06-01', '2026-06-05', '2026-05-20', 'confirmada', 2, 2),
 ('2026-06-10', '2026-06-12', '2026-05-25', 'cancelada', 3, 3),
 ('2026-06-15', '2026-06-20', '2026-05-28', 'confirmada', 1, 2);
 
 insert into hospedagens (checkin, checkout, id_reserva, id_funcionario) values
+
 ('2026-06-01', '2026-06-05', 4, 2),
 ('2026-06-15', '2026-06-20', 6, 1);
 
 insert into pagamento (valor, data_pagamento, metodo, status_pagamento, id_hospedagens) values
+
 (800.00, '2026-06-01', 'pix', 'pago', 7),
 (3000.00, '2026-06-15', 'cartao', 'pendente', 8);
 
 
 insert into avaliacao (nota, comentario, id_hospedagens) values
+
 (4, 'boa estadia', 8),
 (5, 'perfeito, recomendo!', 7);
 
@@ -171,6 +190,7 @@ select * from reserva;
 select * from hospedagens;
 
 -- para saber quais quartos estaos vazios
+
 select * from quarto
 where id_quarto not in (
     select id_quarto from reserva
@@ -179,6 +199,7 @@ where id_quarto not in (
 
 
 -- hospedes que mais reservam (quebrei a cabeça pra fazer esse)
+
 select h.nome, count(r.id_reserva) as total_reservas
 from hospede h
 join reserva r on h.id_hospede = r.id_hospede
@@ -187,16 +208,19 @@ order by total_reservas desc;
 
 
 -- faturamento por mes
+
 select month(data_pagamento) as mes, sum(valor) as faturamento
 from pagamento
 group by mes;
 
 -- servicos que foram usados
+
 select nome, preco
 from servico_extra
 order by preco desc;
 
 -- quarto com melhor availiação 
+
 select q.numero, avg(a.nota) as media
 from quarto q
 join reserva r on q.id_quarto = r.id_quarto
@@ -206,11 +230,13 @@ group by q.numero
 order by media desc;
 
 -- reservas canceladas 
+
 select * from reserva
 where status_reserva = 'cancelada';
 
 
 -- reservas atendidas pelos funcionarios
+
 select f.nome, count(h.id_hospedagens) as total
 from funcionario f
 join hospedagens h on f.id_funcionario = h.id_funcionario
