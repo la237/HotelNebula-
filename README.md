@@ -1,6 +1,6 @@
 <img width="704" height="480" alt="image" src="https://github.com/user-attachments/assets/0fadc4f7-bac0-4a85-abd9-e185bca81a62" />
 
-========================================================================================================
+============================================================================
 
 ENTIDADES
 Hospede: clientes do hotel.
@@ -12,7 +12,7 @@ Funcionario: colaboradores do hotel.
 Avaliacao: opinião do cliente após a hospedagem.
 Servico_Extra: serviços adicionais oferecidos pelo hotel.
 
-==========================================================================================================
+============================================================================
 
 RELACIONAMENTO
 Um hóspede realiza reservas, podendo fazer várias reservas ao longo do tempo,
@@ -22,7 +22,7 @@ Um funcionário atende hospedagens, sendo responsável pelo suporte ao cliente,
 Uma hospedagem possui pagamentos, podendo ter um ou mais registros financeiros,
 Uma hospedagem recebe avaliações, feitas pelos clientes após a estadia.
 
-===========================================================================================================
+============================================================================
 
 REGRA DE NEGOCIO
 Um hóspede pode realizar várias reservas, mas cada reserva pertence a um único hóspede,
@@ -35,7 +35,8 @@ Uma hospedagem pode ter um ou mais pagamentos registrados,
 A avaliação é opcional e ocorre após a hospedagem,
 Serviços extras só podem ser utilizados durante uma hospedagem.
 
-============================================================================================================
+============================================================================
+
 DOCUMENTAÇÃO DO BANCO DE DADOS 
 
   O desenvolvimento do banco de dados do projeto Hotel Nebula foi realizado com o auxílio do XAMPP,
@@ -51,7 +52,7 @@ o funcionamento do sistema e validar os relacionamentos entre as entidades.
 e responder às questões propostas, como disponibilidade de quartos, faturamento, análise de reservas e 
 desempenho operacional do hotel.
 
-==================================================================================================================
+============================================================================
 
 BANCO DE DADOS
 
